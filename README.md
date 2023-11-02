@@ -8,12 +8,12 @@ It contains:
 * example/: The numbered Example code files from the book.
 Most are Python, but a few are Jinja templates.
 * src/: Root path for the demonstration web site.
-** data/: Python modules for the bottom data layer.
-** db/: Text and SQLite data sources for book examples.
-** error.py: A Python module of exception definitions.
-** model/: Pydantic Python modules that define data aggregates.
-** service/: Python modules for the intermediate Service layer.
-** static/: Non-code files that are directly served by the web server.
-** template/: Jinja template files.
-** test/: Test scripts for the various layers.
-** web/: FastAPI Python modules for the site's top Web layer.
+    * data/: Python modules for the bottom data layer.
+    * db/: Text and SQLite data sources for book examples.
+    * error.py: A Python module of exception definitions.
+    * model/: Pydantic Python modules that define data aggregates.
+    * service/: Python modules for the intermediate Service layer.
+    * static/: Non-code files that are directly served by the web server.
+    * template/: Jinja template files.
+    * test/: Test scripts for the various layers.
+    * web/: FastAPI Python modules for the site's top Web layer.
