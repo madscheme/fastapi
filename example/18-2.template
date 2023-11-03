@@ -1,0 +1,88 @@
+<head>
+<style>
+html * {
+  font-size: 20pt;
+  font-family: Courier, sans-serif;
+}
+body {
+  margin: 0 auto;
+  max-width: 700px;
+}
+input[type=text] {
+  width: 30px;
+  margin: 1px;
+  padding: 0px;
+  border: 1px solid black;
+}
+td, th {
+  cell-spacing: 4pt;
+  cell-padding: 4pt;
+  border: 1px solid black;
+}
+.H { background-color: #00EE00; } /* hit (green) */
+.C { background-color: #EEEE00; } /* close (yellow) */
+.M { background-color: #EEEEEE; } /* miss (gray) */
+</style>
+</head>
+<body>
+<script>
+function show_score(guess, score){
+    console.log("score", score);
+    var table = document.getElementById("guesses");
+    var row = table.insertRow(row);
+    for (var i = 0; i < guess.length; i++) {
+        var cell = row.insertCell(i);
+        cell.innerHTML = guess[i];
+        cell.classList.add(score[i]);
+    }
+    var word = document.getElementById("word").value;
+    if (guess.toLowerCase() == word.toLowerCase()) {
+        console.log("matched");
+        document.getElementById("status").innerHTML = "&#x1F600";
+    }
+}
+
+async function post_guess() {
+    console.log("start post_guess()");
+    var word = document.getElementById("word").value;
+    var vals = document.getElementsByName("guess");
+    var guess = "";
+    for (var i = 0; i < vals.length; i++) {
+        guess += vals[i].value;
+    }
+    console.log("guess=", guess);
+    console.log("word=", word);
+    var req = new Request("http://localhost:8000/game", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({"guess": guess, "word": word})
+        }
+     )
+     fetch(req)
+        .then((resp) => resp.json())
+        .then((score) => {
+            show_score(guess, score);
+            for (var i = 0; i < vals.length; i++) {
+                vals[i].value = "";
+            }
+         });
+    console.log("end post_guess()");
+}
+</script>
+<h2>Cryptonamicon</h2>
+
+<table id="guesses">
+</table>
+
+<span id="status"></span>
+
+<hr>
+
+<div>
+{% for letter in word %}<input type=text name="guess">{% endfor %}
+<input type=hidden id="word" value="{{word}}">
+<br><br>
+<input type=submit onclick="post_guess()">
+</div>
+
+</body>
