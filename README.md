@@ -1,7 +1,7 @@
 # FastAPI: Modern Python Web Development
 
 This repo is a companion to the O'Reilly book,
-"FastAPI: Modern Python Web Development".
+[FastAPI: Modern Python Web Development](https://learning.oreilly.com/library/view/fastapi/9781098135492/).
 It contains:
 
 * `README.md`: This file.
