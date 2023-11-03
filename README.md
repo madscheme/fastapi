@@ -10,6 +10,7 @@ It contains:
 * error.py: A Python module of exception definitions.
 * example/: The numbered Example code files from the book.
 Most are Python, but a few are Jinja templates.
+* fake/: Fake service and data source during development.
 * model/: Pydantic Python modules that define data aggregates.
 * service/: Python modules for the intermediate Service layer.
 * static/: Non-code files that are directly served by the web server.
