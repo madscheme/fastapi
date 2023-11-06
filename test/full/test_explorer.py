@@ -16,11 +16,11 @@ def fakes() -> list[Explorer]:
 
 def assert_duplicate(exc):
     assert exc.value.status_code == 404
-    assert "Duplicate" in exc.value.msg
+    assert "Duplicate" in exc.value.detail
 
 def assert_missing(exc):
     assert exc.value.status_code == 404
-    assert "Missing" in exc.value.msg
+    assert "Missing" in exc.value.detail
 
 def test_create(sample):
     assert explorer.create(sample) == sample
@@ -41,10 +41,11 @@ def test_get_one_missing():
 def test_modify(fakes):
     assert explorer.modify(fakes[0].name, fakes[0]) == fakes[0]
 
-def test_modify_missing(sample):
+def test_modify_missing():
+    who = Explorer(name="Tonks", description="Dog, not explorer", country="US")
     with pytest.raises(HTTPException) as exc:
-        _ = explorer.modify(sample.name, sample)
-        assert_missing(exc)
+        _ = explorer.modify(who.name, who)
+    assert_missing(exc)
 
 def test_delete(fakes):
     assert explorer.delete(fakes[0].name) is None
