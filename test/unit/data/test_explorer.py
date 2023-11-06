@@ -10,7 +10,8 @@ from data import explorer
 @pytest.fixture
 def sample() -> Explorer:
     return Explorer(name="Pa Tuohy",
-        nationality="Ireland")
+        description="Expectorating explorer",
+        country="IE")
 
 def test_create(sample):
     resp = explorer.create(sample)
@@ -29,13 +30,13 @@ def test_get_missing():
         _ = explorer.get_one("Sam Gamgee")
 
 def test_modify(sample):
-    sample.nationality = "Canada"
+    sample.country = "CA"
     resp = explorer.modify(sample.name, sample)
     assert resp == sample
 
 def test_modify_missing():
-    bob: Explorer = Explorer(name="Bob",
-        nationality="Belgium")
+    bob: Explorer = Explorer(name="Bob", description="Bob who?",
+        country="BE")
     with pytest.raises(Missing):
         _ = explorer.modify(bob.name, bob)
 
