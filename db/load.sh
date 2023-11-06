@@ -19,6 +19,10 @@ create table explorer (
     country text,
     description text
 );
+create table user (
+    name text primary key,
+    hash text
+);
 .mode list
 .import creature.psv creature
 .import explorer.psv explorer
