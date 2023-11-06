@@ -4,12 +4,11 @@ import os
 os.environ["CRYPTID_UNIT_TEST"] = "true"
 from model.explorer import Explorer
 from web import explorer
+from error import Missing, Duplicate
 
 @pytest.fixture
 def sample() -> Explorer:
-    return Explorer(name="Pa Tuohy",
-        description="The old sod",
-        country="IE")
+    return Explorer(name="Pa Tuohy", description="Gaelic gaffer", country="IE")
 
 @pytest.fixture
 def fakes() -> list[Explorer]:
@@ -28,7 +27,7 @@ def test_create(sample):
 
 def test_create_duplicate(fakes):
     with pytest.raises(HTTPException) as exc:
-        _ = explorer.create(fakes[0])
+        resp = explorer.create(fakes[0])
         assert_duplicate(exc)
 
 def test_get_one(fakes):
@@ -36,7 +35,7 @@ def test_get_one(fakes):
 
 def test_get_one_missing():
     with pytest.raises(HTTPException) as exc:
-        _ = explorer.get_one("bobcat")
+        resp = explorer.get_one("Buffy")
         assert_missing(exc)
 
 def test_modify(fakes):
@@ -44,7 +43,7 @@ def test_modify(fakes):
 
 def test_modify_missing(sample):
     with pytest.raises(HTTPException) as exc:
-        _ = explorer.modify(sample.name, sample)
+        resp = explorer.modify(sample.name, sample)
         assert_missing(exc)
 
 def test_delete(fakes):
@@ -52,5 +51,5 @@ def test_delete(fakes):
 
 def test_delete_missing(sample):
     with pytest.raises(HTTPException) as exc:
-        _ = explorer.delete("emu")
+        resp = explorer.delete("Wally")
         assert_missing(exc)
