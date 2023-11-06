@@ -1,5 +1,7 @@
 # (insert these lines in web/creature.py)
 
+from fastapi import Response
+import plotly.express as px
 import country_converter as coco
 
 @router.get("/map")

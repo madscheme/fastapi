@@ -1,4 +1,6 @@
 # (insert these lines in web/creature.py)
+
+from fastapi import Response
 import plotly.express as px
 
 @router.get("/test")

@@ -1,4 +1,4 @@
-from .init import conn, curs
+from .init import curs
 from model.explorer import Explorer
 
 curs.execute("""create table if not exists explorer(
@@ -27,7 +27,7 @@ def create(explorer: Explorer) -> Explorer:
     qry = """insert into explorer (name, country, description)
              values (:name, :country, :description)"""
     params = model_to_dict(explorer)
-    res = curs.execute(qry, params)
+    _ = curs.execute(qry, params)
     return get_one(explorer.name)
 
 def modify(name: str, explorer: Explorer) -> Explorer:
@@ -38,7 +38,7 @@ def modify(name: str, explorer: Explorer) -> Explorer:
              where name=:name_orig"""
     params = model_to_dict(explorer)
     params["name_orig"] = explorer.name
-    res = curs.execute(qry, params)
+    _ = curs.execute(qry, params)
     explorer2 = get_one(explorer.name)
     return explorer2
 

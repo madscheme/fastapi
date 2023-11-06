@@ -1,3 +1,4 @@
+import csv
 from tabulate import tabulate
 import sys
 

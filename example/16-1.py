@@ -1,4 +1,6 @@
-from fastapi import Form
+from fastapi import Form, FastAPI
+
+app = FastAPI()
 
 @app.get("/who2")
 def greet2(name: str = Form()):

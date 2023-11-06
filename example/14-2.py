@@ -1,5 +1,5 @@
-from sqlalchemy import Metadata, Table, Column, String
-from sqlalchemy import connect, insert, select
+from sqlalchemy import Metadata, Table, Column, Text
+from sqlalchemy import connect, insert
 
 conn = connect("sqlite:///cryptid.db")
 meta = Metadata()

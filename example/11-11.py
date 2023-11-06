@@ -1,5 +1,7 @@
+from datetime import timedelta
 import os
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from model.user import User
 if os.getenv("CRYPTID_UNIT_TEST"):
     from fake import user as service
@@ -7,13 +9,15 @@ else:
     from service import user as service
 from error import Missing, Duplicate
 
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
 router = APIRouter(prefix = "/user")
 
 # --- new auth stuff
 
 # This dependency makes a post to "/user/token"
 # (from a form containing a username and password)
-# return an access token.
+# and returns an access token.
 oauth2_dep = OAuth2PasswordBearer(tokenUrl="token")
 
 def unauthed():
@@ -40,8 +44,8 @@ async def create_access_token(
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-@app.get("/token")
-def get_access_token(token: str = Depends(oauth2_token)) -> dict:
+@router.get("/token")
+def get_access_token(token: str = Depends(oauth2_dep)) -> dict:
     """Return the current access token"""
     return {"token": token}
 
@@ -61,7 +65,7 @@ def get_one(name) -> User:
 @router.post("/", status_code=201)
 def create(user: User) -> User:
     try:
-        return service.create(creature)
+        return service.create(user)
     except Duplicate as exc:
         raise HTTPException(status_code=409, detail=exc.msg)
 

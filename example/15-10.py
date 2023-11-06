@@ -1,5 +1,9 @@
+from pathlib import path
 from typing import Generator
+from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
+
+app = FastAPI()
 
 def gen_file(path: str) -> Generator:
     with open(file=path, mode="rb") as file:

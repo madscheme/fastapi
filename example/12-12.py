@@ -4,7 +4,6 @@ import os
 os.environ["CRYPTID_UNIT_TEST"] = "true"
 from model.creature import Creature
 from web import creature
-from error import Missing, Duplicate
 
 @pytest.fixture
 def sample() -> Creature:
@@ -29,7 +28,7 @@ def test_create(sample):
 
 def test_create_duplicate(fakes):
     with pytest.raises(HTTPException) as exc:
-        resp = creature.create(fakes[0])
+        _ = creature.create(fakes[0])
         assert_duplicate(exc)
 
 def test_get_one(fakes):
@@ -37,7 +36,7 @@ def test_get_one(fakes):
 
 def test_get_one_missing():
     with pytest.raises(HTTPException) as exc:
-        resp = creature.get_one("bobcat")
+        _ = creature.get_one("bobcat")
         assert_missing(exc)
 
 def test_modify(fakes):
@@ -45,7 +44,7 @@ def test_modify(fakes):
 
 def test_modify_missing(sample):
     with pytest.raises(HTTPException) as exc:
-        resp = creature.modify(sample.name, sample)
+        _ = creature.modify(sample.name, sample)
         assert_missing(exc)
 
 def test_delete(fakes):
@@ -53,5 +52,5 @@ def test_delete(fakes):
 
 def test_delete_missing(sample):
     with pytest.raises(HTTPException) as exc:
-        resp = creature.delete("emu")
+        _ = creature.delete("emu")
         assert_missing(exc)

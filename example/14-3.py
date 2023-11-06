@@ -24,7 +24,7 @@ def read_db():
     from data.explorer import get_all
 
     t1 = perf_counter()
-    data = get_all()
+    _ = get_all()
     t2 = perf_counter()
     print("db read time:", t2-t1)
 
@@ -34,7 +34,7 @@ def read_api():
 
     t1 = perf_counter()
     client = TestClient(app)
-    resp = client.get("/explorer/")
+    _ = client.get("/explorer/")
     t2 = perf_counter()
     print("api read time:", t2-t1)
 

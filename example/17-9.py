@@ -1,6 +1,7 @@
 # (insert these lines in web/creature.py)
 
 from collections import Counter
+from fastapi import Response
 import plotly.express as px
 from service.creature import get_all
 

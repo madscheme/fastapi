@@ -1,5 +1,5 @@
 from model.user import User
-from .init import (conn, curs, get_db, IntegrityError)
+from .init import (curs, IntegrityError)
 from error import Missing, Duplicate
 
 curs.execute("""create table if not exists
