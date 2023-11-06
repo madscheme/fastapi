@@ -2,8 +2,7 @@
 
 import os
 from pathlib import Path
-from sqlite3 import connect, IntegrityError, Connection, Cursor
-from error import Missing, Duplicate
+from sqlite3 import connect, Connection, Cursor, IntegrityError
 
 conn: Connection | None = None
 curs: Cursor | None = None
@@ -15,8 +14,8 @@ def get_db(name: str|None = None, reset: bool = False):
         if not reset:
             return
         conn = None
-    name = os.getenv("CRYPTID_SQLITE_DB")
     if not name:
+        name = os.getenv("CRYPTID_SQLITE_DB")
         top_dir = Path(__file__).resolve().parents[1] # repo top
         db_dir = top_dir / "db"
         db_name = "cryptid.db"

@@ -1,4 +1,4 @@
-from .init import (conn, curs, IntegrityError)
+from .init import (curs, IntegrityError)
 from model.explorer import Explorer
 from error import Missing, Duplicate
 

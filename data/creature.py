@@ -1,5 +1,4 @@
-from copy import copy
-from .init import (conn, curs, get_db, IntegrityError)
+from .init import (curs, IntegrityError)
 from model.creature import Creature
 from error import Missing, Duplicate
 
@@ -45,25 +44,27 @@ def get_random_name() -> str:
 
 def create(creature: Creature) -> Creature:
     qry = """insert into creature
-        (name, description, location)
+        (name, country, area, description, aka)
         values
-        (:name, :description, :location)"""
+        (:name, :country, :area, :description, :aka)"""
     params = model_to_dict(creature)
     try:
         curs.execute(qry, params)
         return get_one(creature.name)
-    except IntegrityError as iexc:
+    except IntegrityError:
         raise Duplicate(msg=
             f"Creature {creature.name} already exists")
 
 def modify(name: str, creature: Creature) -> Creature:
     qry = """update creature set
              name=:name,
+             country=:country,
+             area=:area,
              description=:description,
-             location=:location
-             where name=:name0"""
+             aka=:aka
+             where name=:orig_name"""
     params = model_to_dict(creature)
-    params["name0"] = name
+    params["orig_name"] = name
     curs.execute(qry, params)
     if curs.rowcount == 1:
         return get_one(creature.name)
