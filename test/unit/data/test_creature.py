@@ -9,9 +9,9 @@ from data import creature
 
 @pytest.fixture
 def sample() -> Creature:
-    return Creature(name="yeti",
+    return Creature(name="yeti", country="CN", area="Himalayas",
         description="Abominable Snowman",
-        location="Himalayas")
+        aka="Abominable Snowman")
 
 def test_create(sample):
     resp = creature.create(sample)
@@ -30,13 +30,13 @@ def test_get_one_missing():
         _ = creature.get_one("boxturtle")
 
 def test_modify(sample):
-    creature.location = "Sesame Street"
+    creature.area = "Sesame Street"
     resp = creature.modify(sample.name, sample)
     assert resp == sample
 
 def test_modify_missing():
-    thing: Creature = Creature(name="snurfle",
-        description="some thing", location="somewhere")
+    thing: Creature = Creature(name="snurfle", country="RU", area="",
+        description="some thing", aka="")
     with pytest.raises(Missing):
         _ = creature.modify(thing.name, thing)
 
