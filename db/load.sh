@@ -7,6 +7,18 @@
 sqlite3 cryptid.db <<EOF
 drop table creature;
 drop table explorer;
+create table creature (
+    name text primary key,
+    country text,
+    area text,
+    description text,
+    aka text
+);
+create table explorer (
+    name text primary key,
+    country text,
+    description text
+);
 .mode list
 .import creature.psv creature
 .import explorer.psv explorer

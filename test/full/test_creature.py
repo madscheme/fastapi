@@ -7,9 +7,9 @@ client = TestClient(app)
 
 @pytest.fixture(scope="session")
 def sample() -> Creature:
-    return Creature(name="dragon",
-        description="Wings! Fire!",
-        location="worldwide")
+    return Creature(name="Cthulhu",
+        description="ichorous",
+        country="*", area="*", aka="Ancient One")
 
 def test_create(sample):
     resp = client.post("/creature", json=sample.dict())

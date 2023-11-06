@@ -7,7 +7,8 @@ from web import explorer
 
 @pytest.fixture
 def sample() -> Explorer:
-    return Explorer(name="Pa Tuohy", nationality="Ireland")
+    return Explorer(name="Pa Tuohy", country="IE",
+        description="Expectorating explorer")
 
 @pytest.fixture
 def fakes() -> list[Explorer]:
