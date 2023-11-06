@@ -12,4 +12,5 @@ guesses = [
 
 @pytest.mark.parametrize("guess,score", guesses)
 def test_match(guess, score):
+    print(guess, score)
     assert game.get_score(word, guess) == score
