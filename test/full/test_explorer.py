@@ -20,7 +20,7 @@ def assert_duplicate(exc):
 
 def assert_missing(exc):
     assert exc.value.status_code == 404
-    assert "Missing" in exc.value.detail
+    assert "not found" in exc.value.detail
 
 def test_create(sample):
     assert explorer.create(sample) == sample
