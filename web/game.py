@@ -12,7 +12,6 @@ router = APIRouter(prefix = "/game")
 def game_start(request: Request):
     name = service.get_word()
     top = Path(__file__).resolve().parents[1] # grandparent
-    print(f"{top=}")
     templates = Jinja2Templates(directory=f"{top}/template")
     return templates.TemplateResponse("game.html",
         {"request": request, "word": name})
