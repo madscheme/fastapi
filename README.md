@@ -7,7 +7,7 @@ It contains:
 * `README.md`: This file.
 * `example/`: The numbered Example code files from the book.
 Most are Python, but a few are Jinja templates.
-* `src/`: Source files for th website.
+* `src/`: Source files for the website.
     * `data/`: Python modules for the bottom Data layer.
     * `db/`: Text and SQLite data sources for book examples.
     * `error.py`: A Python module of exception definitions.
